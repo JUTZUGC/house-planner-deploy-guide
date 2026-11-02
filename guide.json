@@ -1,0 +1,105 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "houseplanner",
+    "nameCn": "House Planner",
+    "repoName": "house-planner-deploy-guide",
+    "oneLiner": "在自己服务器上画真实尺寸的户型图，顺手算水电暖与材料报价",
+    "officialRepo": "https://github.com/egmalt/house-planner",
+    "officialDocs": "https://github.com/egmalt/house-planner/blob/main/docs/guide/en/install.md",
+    "stars": "353",
+    "license": "MIT",
+    "highlights": [
+      "真实尺寸：墙体、门窗、家具都按毫米画",
+      "2D + 3D：平面与三维视图随时切换",
+      "管线计算：下水、电气、给水、地暖各有图层",
+      "材料清单：按 JSON 价目表算量并导出 CSV",
+      "版本与快照：每次保存都留版本，可回滚",
+      "数据自持：方案以 JSON 存在自己的卷里"
+    ],
+    "mcpSupport": "项目本身不含 MCP；本仓库的 MCP 只提供部署步骤、端口与常见问题。",
+    "webuiUrl": "http://localhost:8080",
+    "adapterPorts": "",
+    "collectedAt": "2026-11-02",
+    "verification": [
+      [
+        "README 与安装文档确认 Docker 方式、8080 端口与密码向导",
+        "已核对 2026-11-02"
+      ],
+      [
+        "未实测构建与启动",
+        "说明 2026-11-02"
+      ],
+      [
+        "MCP 冒烟：initialize / tools/list 返回 get_guide、search_guide、get_project_info",
+        "已验证 2026-11-02"
+      ],
+      [
+        "非目标宿主调用 get_guide 被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-11-02"
+      ]
+    ],
+    "deploy": {
+      "type": "docker",
+      "steps": [
+        "git clone https://github.com/egmalt/house-planner.git",
+        "cd house-planner",
+        "docker compose up -d --build",
+        "echo \"已启动：打开 http://localhost:8080 ，先到 /api/setup.php 设密码\""
+      ],
+      "stepsPs": [
+        "git clone https://github.com/egmalt/house-planner.git",
+        "Set-Location house-planner",
+        "docker compose up -d --build",
+        "Write-Host \"已启动：打开 http://localhost:8080 ，先到 /api/setup.php 设密码\""
+      ],
+      "source": "https://github.com/egmalt/house-planner/blob/main/docs/guide/en/install.md"
+    },
+    "pitfalls": [
+      "8080 打不开：先看 `docker compose ps`，首次 build 未完成时还没监听",
+      "进不去：先访问 `/api/setup.php` 设置密码",
+      "改了密码不生效：密码只在空存储时写入，需删卷里的 `config.php` 再重启",
+      "端口冲突：用 `HOUSE_PORT` 换一个再起",
+      "数据丢了：别用 `docker compose down -v`",
+      "卫星图不显示：检查网络与经纬度、旋转角是否填对",
+      "管线算不出量：先补齐墙高、楼层与价目表字段"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/house-planner-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/house-planner-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "House Planner",
+    "House Planner 部署",
+    "自托管 户型图",
+    "户型规划 工具",
+    "2D 平面图 软件",
+    "3D 户型 预览",
+    "装修 材料清单",
+    "house planner 教程",
+    "自建 家装 工具",
+    "house-planner deploy guide"
+  ],
+  "topics": [
+    "self-hosted",
+    "floor-plan",
+    "home-design",
+    "php",
+    "docker",
+    "house-planner"
+  ]
+}

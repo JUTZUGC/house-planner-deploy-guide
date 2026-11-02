@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "houseplanner-guide": {
+      "command": "node",
+      "args": [
+        "mcp-server.mjs"
+      ]
+    }
+  }
+}
